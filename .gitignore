@@ -1,0 +1,4 @@
+*.db
+projects/
+statsig/
+todos/
