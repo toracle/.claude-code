@@ -314,119 +314,99 @@ Practical instructions for using development tools effectively within the coding
 
 ## AIDER Tool Usage
 
-AIDER is an AI-powered coding assistant for non-interactive command-line usage - perfect for automated coding tasks. Use it with coding task actively to save cost.
-
-### 🚀 Pre-Configured Setup
-**AIDER is typically pre-configured when available.** No setup usually needed!
+AIDER is an AI-powered coding assistant for non-interactive command-line usage - perfect for automated coding tasks.
 
 ### ✅ Session Setup Check
-**At the start of each coding session, verify AIDER availability:**
-
 ```bash
-# Quick session check (run once per session)
-which aider && aider --version
+which aider && aider --version  # Verify availability
 ```
 
-**Expected Output:**
-```
-✅ /usr/local/bin/aider (or path)
-✅ aider 0.x.x
-```
-
-**If available → AIDER can be used throughout the session**  
-**If not available → use regular coding tools only**
-
-### ⚡ Non-Interactive Command-Line Usage
-
-AIDER excels at one-shot coding tasks via command line - perfect for structure-preserving transformations:
-
+### ⚡ Core Usage Patterns
 ```bash
-# Basic pattern (for simple, isolated changes)
-aider -m "your coding request"
+# Basic usage
+aider --file src/module.py -m "Add validation method"
 
-# Target specific files (most common pattern)
-aider --file path/to/file.py -m "your coding request"
+# Multiple files with context
+aider --file app.py --file tests/test_app.py --read docs/spec.md -m "implement feature X"
 
-# Include context files (for structure-aware changes)
-aider --file main.py --read docs/spec.md -m "implement feature X"
-
-# Multiple related files (for coordinated transformations)
-aider --file module.py --file tests/test_module.py -m "add feature with tests"
+# Essential options
+--file FILE         # Files to edit (multiple allowed)
+--read FILE         # Read-only context files
+-m "message"        # The coding request
+--yes-always        # Auto-confirm changes
 ```
 
-### 🎯 When to Use AIDER vs When to Avoid It
+### 🎯 When to Use AIDER
+- **✅ Code files** (.py, .js, .ts) - structured changes, refactoring, bug fixes
+- **✅ Multi-file coordination** - related changes across specific files
+- **✅ Git integration** - automatic commits with good messages
+- **❌ Avoid for** - prose, markdown, data files, exploratory analysis
 
-#### ✅ **EFFECTIVE - Use AIDER For:**
-- **Python/JavaScript/TypeScript files** - Language model understands syntax well
-- **Structured code changes** - Adding functions, classes, methods
-- **Bug fixes with context** - Specific error messages and stack traces
-- **Refactoring** - Following existing patterns in the codebase
-- **Test creation** - Generating tests based on implementation
-- **Documentation code** - Docstrings, type hints, code comments
-- **Configuration files** - JSON, YAML, TOML with clear structure
+### 🔧 Key Features
+- **Git Integration**: Automatic commits with descriptive messages
+- **Targeted Editing**: Only modifies files specified with `--file`
+- **Context Awareness**: Use `--read` for reference files
+- **Gitignore Respect**: Automatically follows `.gitignore` patterns
 
-#### ❌ **INEFFECTIVE - Avoid AIDER For:**
-- **Plain text/prose** - Natural language writing, documentation prose
-- **Markdown content** - Blog posts, README prose sections, tutorials
-- **Creative writing** - User-facing content, marketing copy
-- **Data files** - CSV, large JSON data, logs
-- **Binary files** - Images, PDFs, compiled files
-- **Complex manual formatting** - Tables, ASCII art, specific layouts
-- **Exploratory analysis** - "What does this code do?" questions
+## Gemini CLI Tool Usage
 
-#### 🤔 **DECISION RULE:**
+Gemini CLI is a context-aware AI coding assistant with memory management and flexible operational modes.
+
+### ✅ Session Setup Check
 ```bash
-# Ask: "Is this primarily about code structure/logic?"
-# YES → Use AIDER
-# NO → Use regular coding tools (Read, Edit, etc.)
+which gemini && gemini --version  # Verify availability
 ```
 
-### 🛠️ Essential Command Patterns
-
+### ⚡ Core Usage Patterns
 ```bash
-# Edit specific files
-aider --file main.py --file utils.py -m "your request"
+# Basic usage
+gemini -p "Create a utility function for email validation"
 
-# Include read-only reference files for context
-aider --file main.py --read conventions.md --read docs/api.md -m "your request"
+# Project-wide analysis
+gemini -a -p "Review architecture and suggest improvements"
 
-# Target multiple related files
-aider --file app.py --file models.py --file tests/test_app.py -m "your request"
+# Auto-accept mode with specific model
+gemini -y -m gemini-2.5-pro -p "Add comprehensive error handling"
+
+# Essential options
+-p "prompt"         # Prompt text
+-a                  # Include ALL files in context
+-y                  # Auto-accept all actions (YOLO mode)
+-m MODEL           # Model selection (flash/pro)
+-d                  # Debug mode (shows context loading)
 ```
 
-**Key Options:**
-- `--file FILE` - Files to edit (can be used multiple times)
-- `--read FILE` - Read-only context files (can be used multiple times)  
-- `--message "text"` or `-m "text"` - The coding request
-- `--yes-always` - Auto-confirm (useful for automation)
+### 🎯 When to Use Gemini CLI
+- **✅ Project analysis** - Understanding large codebases, architecture reviews
+- **✅ Rapid prototyping** - Quick file creation with `-y` flag
+- **✅ Context-heavy tasks** - When you need full project understanding
+- **✅ Model flexibility** - Choose between fast/capable models
 
-### 🎯 Common Usage Patterns
+### 🔧 Key Features
+- **Memory System**: Loads context from `GEMINI.md` files automatically
+- **Model Selection**: `gemini-2.5-flash` (fast) vs `gemini-2.5-pro` (capable)
+- **Project Context**: `-a` flag includes all files in context
+- **Debug Mode**: `-d` shows exactly what context is being loaded
 
+## Combined Tool Workflow
+
+### 🔄 Quick Comparison
+| Tool | Best For | Key Strength |
+|------|----------|--------------|
+| **AIDER** | Targeted file edits | Git integration + precise changes |
+| **Gemini CLI** | Project analysis | Full context + model flexibility |
+
+### 🚀 Combined Workflow
 ```bash
-# Single file changes
-aider --file src/module.py -m "Add validation method to User class"
+# 1. Analyze with Gemini CLI
+gemini -a -p "Analyze current test structure and identify gaps"
 
-# Coordinated multi-file changes  
-aider --file src/models.py --file tests/test_models.py -m "Add feature with tests"
+# 2. Implement with AIDER  
+aider --file tests/test_feature.py -m "Add missing test cases"
 
-# Context-aware development
-aider --file new_feature.py --read existing_feature.py -m "Create new feature following existing patterns"
-
-# Bug fixes with context
-aider --file problematic_file.py --read error.log -m "Fix the timeout error"
+# 3. Review with Gemini CLI
+gemini -a -p "Review test coverage improvements"
 ```
-
-### 🚨 Important AIDER Notes
-
-**Automatic Git Commits:**
-- AIDER automatically creates git commits with descriptive messages
-- Each change is tracked and can be easily reverted
-- No manual git operations needed
-
-**File Management:**
-- Respects `.gitignore` patterns automatically  
-- Only modifies files explicitly specified with `--file`
-- Use `--read` for large reference files to avoid editing them
 
 ## Testing Patterns
 
@@ -686,15 +666,39 @@ aider --file implementation.py --read specification.md -m "implement feature"
 aider --file module.py --file tests/test_module.py -m "add feature with tests"
 ```
 
+## Gemini CLI Quick Commands
+```bash
+# Session check
+which gemini && gemini --version
+
+# Basic usage
+gemini -p "Create a utility function for data validation"
+
+# Project-wide analysis
+gemini -a -p "Review the architecture and suggest improvements"
+
+# Auto-accept mode
+gemini -y -p "Add comprehensive error handling"
+
+# With specific model
+gemini -m gemini-2.5-pro -p "Analyze complex algorithms"
+
+# Debug mode
+gemini -d -a -p "Understand the current context loading"
+```
+
 ## Decision Matrix
-| Task Type | Use AIDER? | Alternative |
-|-----------|------------|-------------|
-| Code files (.py, .js, .ts) | ✅ Yes | - |
-| Structured changes | ✅ Yes | - |
-| Bug fixes with context | ✅ Yes | - |
-| Markdown/prose | ❌ No | Edit tool |
-| Data files | ❌ No | Edit tool |
-| Exploratory analysis | ❌ No | Read tool |
+| Task Type | Use AIDER? | Use Gemini CLI? | Best Choice |
+|-----------|------------|----------------|-------------|
+| Code files (.py, .js, .ts) | ✅ Yes | ✅ Yes | AIDER for targeted edits, Gemini for rapid creation |
+| Structured changes | ✅ Yes | ✅ Yes | AIDER for specific files, Gemini for project-wide |
+| Bug fixes with context | ✅ Yes | ✅ Yes | Both effective - choose based on scope |
+| Project analysis | ❌ Limited | ✅ Yes | Gemini CLI with `-a` flag |
+| Rapid prototyping | ❌ No | ✅ Yes | Gemini CLI with `-y` flag |
+| Architecture review | ❌ No | ✅ Yes | Gemini CLI with `-a` and pro model |
+| Markdown/prose | ❌ No | ❌ No | Edit tool |
+| Data files | ❌ No | ❌ No | Edit tool |
+| Exploratory analysis | ❌ No | ✅ Yes | Gemini CLI with `-a` flag |
 
 ## Development Principles Checklist
 - [ ] Make changes in small steps (5-15 lines)
