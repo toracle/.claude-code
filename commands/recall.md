@@ -17,15 +17,22 @@ First, verify the environment is properly set up:
 !git status || echo "❌ Not a git repository"
 !which gh && gh auth status || echo "❌ GitHub CLI not available or not authenticated"
 
-## Context Discovery Commands
+## Context Discovery
 
-Run these commands to understand current project state:
+Check we were on a task:
 
+<git-status>
 !git branch --show-current
 !git status
 !git log --oneline -5
+</git-status>
+
+<github-status>
 !gh issue list --state open
 !gh pr list --state open
+</github-status>
+
+If we are on a git feature branch and have matched github issue, read github issue body and comments also. Read related github PR body and comments also if exists.
 
 ## Documentation Review
 
@@ -39,7 +46,7 @@ Read project documentation to understand context and current specifications:
 
 Check if development tools are available:
 
-!which aider && aider --version || echo "❌ AIDER not available"
+!which aider && aider --version && !aider --help || echo "❌ AIDER not available"
 
 ## Analysis and Next Steps
 
@@ -67,7 +74,5 @@ Based on the discovery results:
    - Follow documentation-first development
    - Use GitHub issues for task coordination
    - **Use AIDER for coding tasks** - leverage AI-powered coding assistant for structure-preserving transformations
-
-!aider --help
 
 Please provide a concise summary and clear recommendation for continuing development.

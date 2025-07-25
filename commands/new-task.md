@@ -1,17 +1,16 @@
 # new-task - Create new task workflow
 
-Prompt instruction for setting up GitHub issue, branch, and linking commit
+Let's setup GitHub issue, branch, PR and linking commit
 
 ## Environment Check
 
+We are going to start a new task or feature to ensure proper GitHub integration and session continuity.
 First, verify required tools are available:
 
 !git status || echo "❌ Not a git repository"
 !which gh && gh auth status || echo "❌ GitHub CLI not available or not authenticated"
 !which aider && aider --version || echo "❌ AIDER not available"
 
-## Usage
-Use this when starting a new task or feature to ensure proper GitHub integration and session continuity.
 
 ## Workflow Steps
 
@@ -54,7 +53,11 @@ This branch implements:
 See GitHub issue #N for detailed acceptance criteria and progress tracking."
 ```
 
-### 4. Development Process
+### 4.  Create Pull Request
+Create a github PR related to this new github issue with WIP (work in progress) prefix. Create PR in advance to complete task. Start to share information from early.
+Body includes `closes #<issue_number>' to link PR and issue.
+
+### 5. Development Process
 - Update issue description with progress checkboxes
 - Reference issue in commit messages: `Add feature (#N)`
 - Create PR when ready: "Related Issue: Closes #N"
@@ -71,3 +74,5 @@ Future sessions can find context with:
 git branch --show-current                    # Shows current branch with issue number
 gh issue view $(git branch --show-current | grep -o 'issue-[0-9]*' | cut -d'-' -f2)
 ```
+
+Now, ask users about our new task.
