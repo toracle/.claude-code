@@ -5,7 +5,7 @@ Let's reflect on task, collaboration, etc in this session and adjust our further
 * How do you evaluate this session overally? Was it successful? Nice gut feeling? Good enough? Not bad? Not good? Score in 0~10 scale. Closer to 10, it means nice, closer to 0, it means bad.
 * Why did you think like that? Please explain the score.
 * What can we do to increase the score? Let's approach small step strategy. We can't make a giant leap at once, but many fast small change can make huge change.
-* So, with discussion above, do we have lessons learned in this session?
+* So, with discussion above, do we have lessons learned in this session? Not about specific task related, but about generic wisdom, to be aligned between you and I, in future, in several projects, in several industry, in several area.
 
 
 Do we have something to memorize with CLAUDE.md for later session? Discuss with me, and let's update CLAUDE.md
