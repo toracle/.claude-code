@@ -32,7 +32,12 @@ Check we were on a task:
 !gh pr list --state open
 </github-status>
 
-If we are on a git feature branch and have matched github issue, read github issue body and comments also. Read related github PR body and comments also if exists.
+If we are on a git feature branch and have matched github issue, read those entries too:
+
+* github issue body
+* github issue comments
+* related github PR body
+* related github PR comments
 
 ## Documentation Review
 
