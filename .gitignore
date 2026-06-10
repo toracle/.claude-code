@@ -2,3 +2,31 @@
 projects/
 statsig/
 todos/
+
+# Sensitive — never commit
+.credentials.json
+.claude.json
+.claude.json.backup
+mcp-needs-auth-cache.json
+security_warnings_state_*.json
+
+# Runtime / ephemeral state
+history.jsonl
+daemon.log
+daemon/
+sessions/
+transcripts/
+tasks/
+telemetry/
+debug/
+cache/
+paste-cache/
+stats-cache.json
+shell-snapshots/
+file-history/
+backups/
+channels/
+ide/
+plans/
+.last-cleanup
+.last-update-result.json
